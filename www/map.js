@@ -61,7 +61,7 @@
 			var marker = _addMarker({
 				lat: message.lat,
 				lng: message.lng,
-				title: JSON.stringify(message)
+				title: message.title
 			});
 		});		
 	}
@@ -83,7 +83,7 @@
 		var marker = _addMarker({
 			lat: _lat,
 			lng: _lng,
-			title: "Hello, World."
+			title: "Your location."
 		});
 	}
 

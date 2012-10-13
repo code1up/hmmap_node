@@ -47,29 +47,40 @@ app.get("/", function(req, res) {
 app.post("/api/points", function(req, res) {
 	var lat = req.body.lat;
 	var lng = req.body.lng;
+	var title = req.body.title;
 
 	res.contentType("application/json");
 
-	if (!(lat && lng)) {
-		res.send(400, {
+	if (!(lat && lng && title)) {
+		var error = {
 			name: "ApiError",
-			message: "POST: /api/points - lat and lng must be specified."
-		});
+			message: "POST: /api/points - lat, lng and title must be specified."
+		};
+
+		console.log(inspect(error));
+		res.send(400, error);
 	}
 
 	var message = {
 		lat: lat,
-		lng: lng
+		lng: lng,
+		title: title
 	};
 
 	// Push the message.
 	pusher.trigger("my_app", "my_points", message);
 
+	console.log("title: " + title);
+
 	// Feedback input parameters.
-	res.send({
+	var response = {
 		lat: lat,
-		lng: lng
-	});
+		lng: lng,
+		title: title
+	};
+
+	console.log(inspect(response));
+	res.send(response);
 });
 
 // Start app.
