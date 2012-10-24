@@ -13,6 +13,9 @@ var inspect = eyes.inspector({
 	stream: null
 });
 
+// Repository.
+var repository = require("./repository");
+
 // Pusher API
 var Pusher = require("node-pusher");
 
@@ -44,6 +47,24 @@ app.get("/", function(req, res) {
 	res.redirect("map.html");
 });
 
+app.post("/api/images", function(req, res) {
+	var image = req.body.image;
+
+	if (!image) {
+		var error = {
+			name: "ApiError",
+			message: "POST: /api/images - image must be specified."
+		};
+
+		console.log(inspect(error));
+		res.send(400, error);
+	}
+
+	console.log(image);
+
+	repository.saveKitty();
+});
+
 app.post("/api/points", function(req, res) {
 	var lat = req.body.lat;
 	var lng = req.body.lng;
@@ -59,6 +80,8 @@ app.post("/api/points", function(req, res) {
 
 		console.log(inspect(error));
 		res.send(400, error);
+
+		return;
 	}
 
 	var message = {

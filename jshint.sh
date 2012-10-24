@@ -1,2 +1,1 @@
-jshint server.js
-
+jshint ./*.js

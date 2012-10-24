@@ -1,0 +1,131 @@
+
+
+// Find items.
+GET: /api/items/search?
+
+	latitude=
+	longitude=
+	radius=
+	categories=[]
+	keywords=[], // matches title or description
+	rateLow=,
+	rateHigh=,
+	rateUnit=, // "hourly", "daily"
+	availability= // "immediate"?
+
+// Add item.
+POST: /api/items
+
+// Add image to item.
+POST: /api/items/:itemid/images
+
+user: {
+	_id: ObjectId,	
+	username: String,
+
+	address: {
+		postCode
+	},
+
+	phoneNumbers: [
+		phoneNumber: {
+			type: String, // mobile, home
+			number: String		
+		}
+	],
+
+	location: {
+		latitude: Number,
+		longitude: Number,
+	},
+}
+
+item: {
+	_id: ObjectId,	
+	lenderId: ObjectId,
+
+	title: String,
+	description: String,
+
+	categories: [String],
+	imageUrls: [String],
+
+	location: {
+		latitude: Number,
+		longitude: Number	
+	},
+
+	rate: {
+		hourly: Number,
+		daily: Number,
+	},
+
+	listing: {
+		date: {
+			from: Date,
+			to: Date,
+		}
+	},
+
+	audit: {
+		date: {
+			created: {
+				type: Date,
+				default: Date.now
+			},
+			updated: Date
+		}
+	}
+}
+
+loan: {
+	_id: ObjectId,
+	itemId: ObjectId,
+	borrowerId: ObjectId,
+
+	term: {
+		duration: Number,
+
+		rate: {
+			value: Number,
+			currency: String,
+			unit: String // "daily", "hourly"
+		}
+	},
+
+	date: {
+		start: Date,
+		end: Date,
+		return: Date
+	},
+
+	rating: {
+		item: Number,
+		borrower: Number,
+		lender: Number
+	},
+
+	audit: {
+		date: {
+			created: {
+				type: Date,
+				default: Date.now
+			},
+			updated: Date
+		}
+	}
+}
+
+categories:
+
+	Baby
+	Computers
+	DVDs
+	Garden
+	DIY
+	Home and Furniture
+	Sound and Vision
+	Sports
+	Toys and Games
+	Travel
+
