@@ -45,7 +45,7 @@
 	}
 
 	function _subscribeToPusher() {
-		var pusher = new Pusher("c13c8931dbb6382da0ab");
+		var pusher = new Pusher("79fc67ae536b715d4453");
 		var channel = pusher.subscribe("my_app");
 
 		channel.bind("pusher:subscription_succeeded", function() {
